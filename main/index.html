@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Track</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <a href="settings.html" class="back-link" data-i18n="settingsLink">← Pengaturan</a>
+
+        <div class="summary-container">
+            <div class="summary-box pemasukan">
+                <h2 data-i18n="totalIncomeLabel">Total Pemasukan</h2>
+                <p id="total-pemasukan">Rp 0</p>
+            </div>
+            <div class="summary-box pengeluaran">
+                <h2 data-i18n="totalExpenseLabel">Total Pengeluaran</h2>
+                <p id="total-pengeluaran">Rp 0</p>
+            </div>
+            <div class="summary-box saldo">
+                <h2 data-i18n="balanceLabel">Saldo Akhir</h2>
+                <p id="saldo-akhir">Rp 0</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2 data-i18n="addTransactionLabel">Tambah Transaksi Baru</h2>
+                <form id="form-transaksi">
+                    <input type="text" id="deskripsi" data-i18n-placeholder="descriptionPlaceholder" placeholder="Contoh: Beli Kopi" required>
+                    <input type="number" id="kuantitas" data-i18n-placeholder="quantityPlaceholder" placeholder="Jumlah Barang (contoh: 2)" min="1" value="1" required>
+                    <input type="number" id="jumlah" data-i18n-placeholder="pricePlaceholder" placeholder="Harga Satuan (contoh: 25000)" required>
+                    <select id="tipe" required>
+                        <option value="pemasukan" data-i18n="incomeOption">Pemasukan</option>
+                        <option value="pengeluaran" data-i18n="expenseOption">Pengeluaran</option>
+                    </select>
+                    <input type="date" id="tanggal" required>
+                    <button type="submit" data-i18n="addButton">Tambah</button>
+                </form>
+
+                <div class="calculator" id="quick-calculator">
+                    <input type="text" id="calc-display" readonly>
+                    <div class="calc-buttons">
+                        <button onclick="appendToDisplay('7')">7</button>
+                        <button onclick="appendToDisplay('8')">8</button>
+                        <button onclick="appendToDisplay('9')">9</button>
+                        <button class="operator" onclick="appendToDisplay('/')">/</button>
+                        <button onclick="appendToDisplay('4')">4</button>
+                        <button onclick="appendToDisplay('5')">5</button>
+                        <button onclick="appendToDisplay('6')">6</button>
+                        <button class="operator" onclick="appendToDisplay('*')">x</button>
+                        <button onclick="appendToDisplay('1')">1</button>
+                        <button onclick="appendToDisplay('2')">2</button>
+                        <button onclick="appendToDisplay('3')">3</button>
+                        <button class="operator" onclick="appendToDisplay('-')">-</button>
+                        <button onclick="appendToDisplay('0')">0</button>
+                        <button onclick="clearDisplay()">C</button>
+                        <button class="operator" onclick="calculateResult()">=</button>
+                        <button class="operator" onclick="appendToDisplay('+')">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <h2 data-i18n="historyLabel">Riwayat Transaksi</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-i18n="dateHeader">Tanggal</th>
+                            <th data-i18n="descriptionHeader">Deskripsi</th>
+                            <th data-i18n="amountHeader">Jumlah Harga</th>
+                            <th data-i18n="quantityHeader">Jumlah Barang</th>
+                            <th data-i18n="typeHeader">Tipe</th>
+                            <th data-i18n="actionHeader">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabel-transaksi">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="lang.js"></script>
+    <script src="app-settings.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

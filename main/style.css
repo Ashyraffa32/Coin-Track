@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+
+:root {
+    /* Light Mode Colors (Default) */
+    --bg-color: #f4f4f9;
+    --main-bg-color: #ffffff;
+    --text-color: #333;
+    --primary-color: #4a90e2;
+    --green-color: #2ecc71;
+    --red-color: #e74c3c;
+    --border-color: #ddd;
+    --shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    --bg-color: #181a1b;
+    --main-bg-color: #23272a;
+    --text-color: #f4f4f9;
+    --primary-color: #4a90e2;
+    --border-color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    background: var(--main-bg-color);
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.summary-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.summary-box {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    flex: 1;
+}
+
+.summary-box h2 {
+    margin-top: 0;
+    font-size: 1rem;
+}
+
+.summary-box p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.pemasukan p { color: var(--green-color); }
+.pengeluaran p { color: var(--red-color); }
+.saldo p { color: var(--primary-color); }
+
+.main-content {
+    display: flex;
+    gap: 2rem;
+}
+
+.form-section, .history-section {
+    flex: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+input, select, button {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #357abd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--light-grey);
+}
+
+.delete-btn {
+    background: var(--red-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Calculator Styles */
+.calculator {
+    background: #e9e9e9;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+#calc-display {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    text-align: right;
+    font-size: 1.8rem;
+    background: #fff;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.calc-buttons button {
+    padding: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.calc-buttons button:hover {
+    opacity: 0.9;
+}
+
+.calc-buttons .operator {
+    background-color: #ff9f43;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* --- Tambahan untuk Responsive Design --- */
+
+/* Ini berlaku untuk layar dengan lebar maksimal 768px (ukuran tablet & HP) */
+@media (max-width: 768px) {
+    body {
+        padding: 10px; /* Kurangi padding di body biar ga sempit */
+    }
+    
+    .container {
+        padding: 1rem; /* Kurangi padding di container utama */
+    }
+
+    h1 {
+        font-size: 1.8rem; /* Kecilin dikit judul utamanya */
+    }
+
+    /* Bikin summary box jadi kolom, bukan baris lagi */
+    .summary-container {
+        flex-direction: column; 
+    }
+
+    /* Ini bagian penting: ubah layout utama jadi tumpuk ke bawah */
+    .main-content {
+        flex-direction: column;
+    }
+
+    .form-section {
+        margin-bottom: 2rem; /* Kasih jarak antara form dan tabel riwayat */
+    }
+
+    /* Bikin input dan tombol lebih ramah di HP */
+    input, select, button {
+        font-size: 0.95rem;
+    }
+
+    /* Biar tabelnya bisa di-scroll ke samping kalo datanya panjang */
+    .history-section {
+        overflow-x: auto; /* Ini penting banget buat tabel! */
+    }
+}
+
+/* Add this to your style.css file */
+
+.language-buttons button {
+    flex: 1;
+    background-color: #eee;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.75rem;
+    transition: background-color 0.3s;
+}
+
+.language-buttons button.active-lang {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .language-buttons button {
+    background-color: #3a3f44;
+}
+
+body.dark-mode .language-buttons button.active-lang {
+    background-color: var(--primary-color);
+    color: white;
+}

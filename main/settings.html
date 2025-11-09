@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link" data-i18n="backLink">← Kembali</a>
+        <h1 data-i18n="settingsTitle">Pengaturan</h1>
+
+        <div class="settings-container">
+            <div class="setting-item">
+                <label for="theme-selector" data-i18n="themeLabel">Tema Tampilan</label>
+                <select id="theme-selector">
+                    <option value="light" data-i18n="lightModeOption">Light Mode</option>
+                    <option value="dark" data-i18n="darkModeOption">Dark Mode</option>
+                </select>
+            </div>
+
+            <div class="setting-item">
+                <label data-i18n="languageLabel">Bahasa</label>
+                <div class="button-group language-buttons">
+                    <button id="lang-id-btn" data-lang="id">Bahasa Indonesia</button>
+                    <button id="lang-en-btn" data-lang="en">English</button>
+                </div>
+            </div>
+
+            <div class="setting-item">
+                <label for="currency-input" data-i18n="currencyLabel">Simbol Mata Uang</label>
+                <div class="input-group">
+                    <input type="text" id="currency-input" data-i18n-placeholder="currencyPlaceholder" placeholder="Contoh: Rp">
+                    <button id="save-currency-btn" data-i18n="saveButton">Simpan</button>
+                </div>
+            </div>
+
+            <div class="setting-item">
+                <label data-i18n="dataMgmtLabel">Manajemen Data</label>
+                <div class="button-group">
+                    <button id="reset-btn" class="btn-danger" data-i18n="resetButton">Hapus Semua Data</button>
+                </div>
+            </div>
+
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="show-calculator-checkbox">
+                    <span data-i18n="showCalcLabel">Tampilkan Kalkulator Cepat</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <script src="lang.js"></script>
+    <script src="app-settings.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>
