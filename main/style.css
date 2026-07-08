@@ -1,25 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@400;600&display=swap');
 
 
 :root {
-    /* Light Mode Colors (Default) */
-    --bg-color: #f4f4f9;
+    /* Updated colors for a more neutral and modern look */
+    --bg-color: #f2f2f7;
     --main-bg-color: #ffffff;
-    --text-color: #333;
-    --primary-color: #4a90e2;
-    --green-color: #2ecc71;
-    --red-color: #e74c3c;
-    --border-color: #ddd;
-    --shadow: 0 4px 8px rgba(0,0,0,0.1);
+    --text-color: #1c1c1e;
+    --primary-color: #007aff;
+    --green-color: #34c759;
+    --red-color: #ff3b30;
+    --border-color: #c7c7cc;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --corner-radius: 12px;
+}
+
+.hidden {
+    display: none !important
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    line-height: 1.6;
+    line-height: 1.5;
     margin: 0;
-    padding: 20px;
+    padding: 16px;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -35,19 +40,19 @@ body.dark-mode {
 
 
 .container {
-    max-width: 1200px;
+    max-width: 800px;
     margin: auto;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
     background: var(--main-bg-color);
+    padding: 16px;
+    border-radius: var(--corner-radius);
+    box-shadow: var(--shadow);
 }
 
 h1, h2 {
-    color: var(--primary-color);
+    color: var(--text-color);
+    font-weight: 600;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
 }
 
 .summary-container {
@@ -97,48 +102,67 @@ form {
     margin-bottom: 2rem;
 }
 
-input, select, button {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
+input, select {
+    border: 1px solid var(--border-color);
+    border-radius: var(--corner-radius);
+    padding: 12px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    border: none;
+    border-radius: var(--corner-radius);
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button[type="submit"] {
     background-color: var(--primary-color);
     color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-    background-color: #357abd;
+    background-color: #0056d6;
+}
+
+.history-filters {
+    display: grid;
+    grid-template-columns: 1.6fr 1.2fr 1fr auto;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.history-filters input,
+.history-filters button {
+    width: 100%;
+}
+
+.history-filters button {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 16px;
 }
 
 th, td {
-    padding: 0.75rem;
+    padding: 12px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
 }
 
 th {
-    background-color: var(--light-grey);
-}
-
-.delete-btn {
-    background: var(--red-color);
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    background-color: var(--bg-color);
+    font-weight: 600;
 }
 
 /* Calculator Styles */
@@ -193,20 +217,121 @@ a:hover {
     text-decoration: underline;
 }
 
+/* --- NOTES SECTION STYLING --- */
+.notes-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#notes-textarea {
+    width: 100%;
+    height: 60vh; /* Takes up 60% of the screen height */
+    min-height: 300px;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--corner-radius);
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    font-family: 'Courier New', Courier, monospace; /* Monospace for code/notes vibe */
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: vertical; /* Allow user to drag height */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); /* Inner shadow for depth */
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+#notes-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.notes-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Wraps on small screens */
+    gap: 10px;
+}
+
+.download-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* Button Variants */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    flex: 1;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: rgba(0, 122, 255, 0.05);
+}
+
+/* Dark Mode Specific Adjustments for Notes */
+body.dark-mode #notes-textarea {
+    background-color: #2c2c2e;
+    border-color: #48484a;
+    color: #e5e5e7;
+}
+
+#notes-section {
+    padding: 10px;
+    height: calc(100vh - 80px); /* Adjust based on bottom nav height */
+    display: flex;
+    flex-direction: column;
+}
+
+#notes-textarea {
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    background: var(--main-bg-color);
+    padding: 15px;
+    font-size: 16px; /* Prevents iOS auto-zoom on focus */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.notes-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for mobile thumbs */
+    gap: 10px;
+    padding-bottom: env(safe-area-inset-bottom); /* Respects iPhone "notch" at bottom */
+}
+
+/* Make the Save to App button span full width */
+#save-local-btn {
+    grid-column: span 2;
+    padding: 12px;
+    font-weight: bold;
+}
+
 /* --- Tambahan untuk Responsive Design --- */
 
 /* Ini berlaku untuk layar dengan lebar maksimal 768px (ukuran tablet & HP) */
 @media (max-width: 768px) {
     body {
-        padding: 10px; /* Kurangi padding di body biar ga sempit */
+        padding: 8px;
     }
-    
+
     .container {
-        padding: 1rem; /* Kurangi padding di container utama */
+        padding: 12px;
     }
 
     h1 {
-        font-size: 1.8rem; /* Kecilin dikit judul utamanya */
+        font-size: 1.5rem;
     }
 
     /* Bikin summary box jadi kolom, bukan baris lagi */
@@ -221,6 +346,10 @@ a:hover {
 
     .form-section {
         margin-bottom: 2rem; /* Kasih jarak antara form dan tabel riwayat */
+    }
+
+    .history-filters {
+        grid-template-columns: 1fr;
     }
 
     /* Bikin input dan tombol lebih ramah di HP */
@@ -259,4 +388,47 @@ body.dark-mode .language-buttons button {
 body.dark-mode .language-buttons button.active-lang {
     background-color: var(--primary-color);
     color: white;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    gap: 4px;
+    justify-content: space-around;
+    background-color: var(--main-bg-color);
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    padding: 8px 0;
+}
+
+.bottom-nav button {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 12px 0;
+    margin-left: 12px;
+    margin-right: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.bottom-nav button.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Section Visibility */
+.section {
+    display: none;
+}
+
+.section:not(.hidden) {
+    display: block;
 }

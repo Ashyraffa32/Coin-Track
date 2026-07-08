@@ -36,6 +36,6 @@ If you share or modify, please give proper credits 🙏.
 ## 📢 Credits
 This project was started by two middle‑school friends :D
 
-> Built with ❤️ by Ashyraffa and Ratu (idea was from her btw)
+> Built with ❤️ by raffa3527
 
 ---

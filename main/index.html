@@ -2,88 +2,158 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Coin Track</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="container">
-        <a href="settings.html" class="back-link" data-i18n="settingsLink">← Pengaturan</a>
-
-        <div class="summary-container">
-            <div class="summary-box pemasukan">
-                <h2 data-i18n="totalIncomeLabel">Total Pemasukan</h2>
-                <p id="total-pemasukan">Rp 0</p>
-            </div>
-            <div class="summary-box pengeluaran">
-                <h2 data-i18n="totalExpenseLabel">Total Pengeluaran</h2>
-                <p id="total-pengeluaran">Rp 0</p>
-            </div>
-            <div class="summary-box saldo">
-                <h2 data-i18n="balanceLabel">Saldo Akhir</h2>
-                <p id="saldo-akhir">Rp 0</p>
+        <div>
+            <a href="settings.html">Settings</a>
+        </div>
+        <!-- Quick Calculator Section -->
+        <div id="quick-calculator-section" class="section">
+            <h1 data-i18n="quickCalculatorTitle">Quick Calculator</h1>
+            <div class="calculator">
+                <input type="text" id="calc-display" readonly>
+                <div class="calc-buttons">
+                    <!-- Calculator buttons -->
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                    <button class="operator">/</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button class="operator">*</button>
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button class="operator">-</button>
+                    <button>0</button>
+                    <button>.</button>
+                    <button class="operator">+</button>
+                    <button class="operator">=</button>
+                    <button class="operator">C</button>
+                </div>
             </div>
         </div>
 
-        <div class="main-content">
-            <div class="form-section">
-                <h2 data-i18n="addTransactionLabel">Tambah Transaksi Baru</h2>
-                <form id="form-transaksi">
-                    <input type="text" id="deskripsi" data-i18n-placeholder="descriptionPlaceholder" placeholder="Contoh: Beli Kopi" required>
-                    <input type="number" id="kuantitas" data-i18n-placeholder="quantityPlaceholder" placeholder="Jumlah Barang (contoh: 2)" min="1" value="1" required>
-                    <input type="number" id="jumlah" data-i18n-placeholder="pricePlaceholder" placeholder="Harga Satuan (contoh: 25000)" required>
-                    <select id="tipe" required>
-                        <option value="pemasukan" data-i18n="incomeOption">Pemasukan</option>
-                        <option value="pengeluaran" data-i18n="expenseOption">Pengeluaran</option>
-                    </select>
-                    <input type="date" id="tanggal" required>
-                    <button type="submit" data-i18n="addButton">Tambah</button>
-                </form>
-
-                <div class="calculator" id="quick-calculator">
-                    <input type="text" id="calc-display" readonly>
-                    <div class="calc-buttons">
-                        <button onclick="appendToDisplay('7')">7</button>
-                        <button onclick="appendToDisplay('8')">8</button>
-                        <button onclick="appendToDisplay('9')">9</button>
-                        <button class="operator" onclick="appendToDisplay('/')">/</button>
-                        <button onclick="appendToDisplay('4')">4</button>
-                        <button onclick="appendToDisplay('5')">5</button>
-                        <button onclick="appendToDisplay('6')">6</button>
-                        <button class="operator" onclick="appendToDisplay('*')">x</button>
-                        <button onclick="appendToDisplay('1')">1</button>
-                        <button onclick="appendToDisplay('2')">2</button>
-                        <button onclick="appendToDisplay('3')">3</button>
-                        <button class="operator" onclick="appendToDisplay('-')">-</button>
-                        <button onclick="appendToDisplay('0')">0</button>
-                        <button onclick="clearDisplay()">C</button>
-                        <button class="operator" onclick="calculateResult()">=</button>
-                        <button class="operator" onclick="appendToDisplay('+')">+</button>
-                    </div>
+        <!-- Transactions Section -->
+        <div id="transactions-section" class="section hidden">
+            <h1 data-i18n="transactionsTitle">Transactions</h1>
+            <div class="summary-container">
+                <div class="summary-box pemasukan">
+                    <h2 data-i18n="totalIncomeLabel" style="color: #000000;">Income</h2>
+                    <p id="total-pemasukan">$0</p>
+                </div>
+                <div class="summary-box pengeluaran">
+                    <h2 data-i18n="totalExpenseLabel" style="color: #000000;">Expense</h2>
+                    <p id="total-pengeluaran">$0</p>
+                </div>
+                <div class="summary-box saldo">
+                    <h2 data-i18n="balanceLabel" style="color: #000000;">Balance</h2>
+                    <p id="saldo-akhir">$0</p>
                 </div>
             </div>
 
-            <div class="history-section">
-                <h2 data-i18n="historyLabel">Riwayat Transaksi</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th data-i18n="dateHeader">Tanggal</th>
-                            <th data-i18n="descriptionHeader">Deskripsi</th>
-                            <th data-i18n="amountHeader">Jumlah Harga</th>
-                            <th data-i18n="quantityHeader">Jumlah Barang</th>
-                            <th data-i18n="typeHeader">Tipe</th>
-                            <th data-i18n="actionHeader">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabel-transaksi">
+            <div class="main-content">
+                <div class="form-section">
+                    <h2 data-i18n="addTransactionLabel">Add Transaction</h2>
+                    <form id="form-transaksi">
+                        <input type="text" id="deskripsi" placeholder="Description" required>
+                        <input list="kategori-list" id="kategori" data-i18n-placeholder="categoryPlaceholder" placeholder="Category" required>
+                        <datalist id="kategori-list">
+                            <option value="Food"></option>
+                            <option value="Bills"></option>
+                            <option value="Transport"></option>
+                            <option value="Savings"></option>
+                            <option value="Other"></option>
+                        </datalist>
+                        <input type="text" id="tags" placeholder="Tags (comma separated)">
+                        <input type="number" id="kuantitas" placeholder="Quantity" min="1" value="1" required>
+                        <input type="number" id="jumlah" placeholder="Price" required>
+                        <select id="tipe" required>
+                            <option value="pemasukan">Income</option>
+                            <option value="pengeluaran">Expense</option>
+                        </select>
+                        <input type="date" id="tanggal" required>
+                        <button type="submit">Add</button>
+                    </form>
+                </div>
+
+                <div class="history-section">
+                    <h2 data-i18n="historyLabel">Transaction History</h2>
+                    <div class="history-filters">
+                        <input type="text" id="search-transactions" data-i18n-placeholder="searchTransactionsPlaceholder" placeholder="Search description, category or tags">
+                        <input list="category-options" id="filter-category" data-i18n-placeholder="filterCategoryPlaceholder" placeholder="Filter by category">
+                        <datalist id="category-options">
+                            <option value="Food"></option>
+                            <option value="Bills"></option>
+                            <option value="Transport"></option>
+                            <option value="Savings"></option>
+                            <option value="Other"></option>
+                        </datalist>
+                        <input type="number" id="filter-amount" data-i18n-placeholder="filterAmountPlaceholder" placeholder="Max amount" min="0">
+                        <button type="button" id="clear-filters-btn" data-i18n="clearFiltersButton">Clear</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Tags</th>
+                                <th>Amount</th>
+                                <th>Quantity</th>
+                                <th>Type</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabel-transaksi">
+                            <!-- Transactions will be dynamically added here -->
                         </tbody>
-                </table>
+                    </table>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+
+                
             </div>
         </div>
     </div>
-    
+
+       <!-- Notes Section -->
+ <div id="notes-section" class="section hidden">
+    <div class="notes-wrapper">
+        <textarea id="notes-textarea" data-i18n-placeholder="notesPlaceholder"></textarea>
+        
+        <div class="notes-controls">
+            <button id="save-local-btn" class="btn-primary" data-i18n="saveLocalBtn">
+                Save to App
+            </button>
+            <div class="download-group">
+                <button id="dl-txt-btn" class="btn-secondary" data-i18n="downloadTxtBtn">
+                    Save as .txt
+                </button>
+                <button id="dl-md-btn" class="btn-secondary" data-i18n="downloadMdBtn">
+                    Save as .md
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <button id="nav-calculator" class="active" data-i18n="quickCalculatorNav">Quick Calculator</button>
+        <button id="nav-transactions" data-i18n="transactionsNav">Transactions</button>
+        <button id="nav-notes" data-i18n="notesNav">Notes</button>
+    </nav>
+
     <script src="lang.js"></script>
     <script src="app-settings.js"></script>
     <script src="script.js"></script>
