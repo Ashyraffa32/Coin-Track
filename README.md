@@ -12,13 +12,30 @@ We built this to help **treasurers** who need a fast, offline tool that *just wo
 ---
 
 
-## 🤝 Contributing
-We ❤️ open source! 
+## 🤝 Contributing/Build From Source
 
-1. Fork this repo
-2. Clone your fork
-3. Make your changes
-4. Open an issue / pull request
+Since CoinTrack is built using pure web technologies (Vanilla HTML/CSS/JS) and wrapped with **Capacitor.js**, you can easily build the APK locally by following these steps:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com
+   cd Coin-Track
+   ```
+
+2. **Install the dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Initialize and sync the Android platform:**
+   *(Make sure the `webDir` in your `capacitor.config.json` points to the `main` directory)*
+   ```bash
+   npx cap add android
+   npx cap sync android
+   ```
+
+4. **Build the APK:**
+   Open the generated `android` folder in **Android Studio**, then go to **Build > Build Bundle(s) / APK(s) > Build APK(s)**.
 
 ---
 
