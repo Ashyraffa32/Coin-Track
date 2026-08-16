@@ -3,43 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>Pengaturan</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Apply theme immediately to prevent flashing
+        (function() {
+            const settings = JSON.parse(localStorage.getItem('settings')) || {};
+            if (settings.theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+            }
+        })();
+    </script>
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link" data-i18n="backLink">← Back</a>
-        <h1 data-i18n="settingsTitle">Settings</h1>
+        <a href="index.html" class="back-link" data-i18n="backLink">← Kembali</a>
+        <h1 data-i18n="settingsTitle">Pengaturan</h1>
 
         <div class="settings-container">
-            <div class="setting-item">
-                <label for="theme-selector" data-i18n="themeLabel">Theme (Beta)</label>
-                <select id="theme-selector">
-                    <option value="light" data-i18n="lightModeOption">Light</option>
-                    <option value="dark" data-i18n="darkModeOption">Dark</option>
-                </select>
-            </div>
-
-            <div class="setting-item">
-                <label data-i18n="languageLabel">Language</label>
-                <div class="button-group">
-                    <button id="lang-id-btn" data-lang="id">Bahasa Indonesia</button>
-                    <button id="lang-en-btn" data-lang="en">English</button>
+            <!-- Appearance Group -->
+            <div class="setting-group-title" data-i18n="themeLabel">Tema Tampilan</div>
+            <div class="setting-group">
+                <div class="setting-item">
+                    <label for="theme-selector" data-i18n="themeLabel">Tema (Beta)</label>
+                    <select id="theme-selector">
+                        <option value="light" data-i18n="lightModeOption">Light Mode</option>
+                        <option value="dark" data-i18n="darkModeOption">Dark Mode</option>
+                    </select>
+                </div>
+                <div class="setting-item checkbox-item">
+                    <label for="show-calculator-checkbox" data-i18n="showCalcLabel">Tampilkan Kalkulator Cepat</label>
+                    <input type="checkbox" id="show-calculator-checkbox">
                 </div>
             </div>
 
-            <div class="setting-item">
-                <label for="currency-input" data-i18n="currencyLabel">Currency</label>
-                <input type="text" id="currency-input" placeholder="e.g., $" data-i18n-placeholder="currencyPlaceholder">
-                <button id="save-currency-btn" data-i18n="saveButton">Save</button>
+            <!-- Localization Group -->
+            <div class="setting-group-title" data-i18n="languageLabel">Bahasa & Regional</div>
+            <div class="setting-group">
+                <div class="setting-item">
+                    <label data-i18n="languageLabel">Bahasa</label>
+                    <div class="button-group language-buttons">
+                        <button id="lang-id-btn" data-lang="id">Bahasa Indonesia</button>
+                        <button id="lang-en-btn" data-lang="en">English</button>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label for="currency-input" data-i18n="currencyLabel">Simbol Mata Uang</label>
+                    <div class="input-with-button">
+                        <input type="text" id="currency-input" placeholder="Contoh: Rp" data-i18n-placeholder="currencyPlaceholder">
+                        <button id="save-currency-btn" data-i18n="saveButton">Simpan</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="setting-item">
-                <button id="reset-btn" class="btn-danger" data-i18n="resetButton">Reset Data</button>
+            <!-- Data Management Group -->
+            <div class="setting-group-title" data-i18n="dataMgmtLabel">Manajemen Data</div>
+            <div class="setting-group">
+                <div class="setting-item" style="border-bottom: none;">
+                    <button id="reset-btn" class="btn-danger" data-i18n="resetButton">Hapus Semua Data</button>
+                </div>
             </div>
 
             <div class="about">
-                <p>CoinTrack v1.3.0, made by Ashyraffa</p>
+                <p data-i18n="footerAbout">CoinTrack v1.3.5, dibuat oleh Ashyraffa</p>
             </div>
         </div>
     </div>

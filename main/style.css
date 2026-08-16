@@ -2,16 +2,25 @@
 
 
 :root {
-    /* Updated colors for a more neutral and modern look */
-    --bg-color: #f2f2f7;
+    /* Refined color palette for a cleaner look */
+    --bg-color: #f8f9fa;
     --main-bg-color: #ffffff;
-    --text-color: #1c1c1e;
+    --text-color: #212529;
     --primary-color: #007aff;
-    --green-color: #34c759;
-    --red-color: #ff3b30;
-    --border-color: #c7c7cc;
-    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --corner-radius: 12px;
+    --border-color: #e9ecef;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --corner-radius: 16px;
+    color-scheme: light;
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --main-bg-color: #1e1e1e;
+    --text-color: #e9ecef;
+    --primary-color: #3794ff;
+    --border-color: #2d2d2d;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    color-scheme: dark;
 }
 
 .hidden {
@@ -26,16 +35,17 @@ body {
     margin: 0;
     padding: 16px;
     transition: background-color 0.3s, color 0.3s;
+
+    /* Disable text selection for a more native feel */
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; /* Remove blue flash on tap in Android/iOS */
 }
 
-body.dark-mode {
-    --bg-color: #181a1b;
-    --main-bg-color: #23272a;
-    --text-color: #f4f4f9;
-    --primary-color: #4a90e2;
-    --border-color: #333;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+/* Re-enable selection for inputs and textareas where users need to type */
+input, select, textarea, [contenteditable="true"] {
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 
@@ -64,26 +74,30 @@ h1, h2 {
 }
 
 .summary-box {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: var(--main-bg-color);
+    padding: 1.25rem;
+    border-radius: var(--corner-radius);
     box-shadow: var(--shadow);
     flex: 1;
+    border: 1px solid var(--border-color);
 }
 
 .summary-box h2 {
     margin-top: 0;
-    font-size: 1rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
 }
 
 .summary-box p {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-weight: 700;
     margin: 0;
 }
 
-.pemasukan p { color: var(--green-color); }
-.pengeluaran p { color: var(--red-color); }
+.pemasukan p { color: var(--primary-color); }
+.pengeluaran p { color: var(--primary-color); }
 .saldo p { color: var(--primary-color); }
 
 .main-content {
@@ -103,12 +117,21 @@ form {
 }
 
 input, select {
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
     border: 1px solid var(--border-color);
-    border-radius: var(--corner-radius);
-    padding: 12px;
+    border-radius: 10px;
+    padding: 14px;
     font-size: 16px;
     width: 100%;
     box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
 }
 
 button {
@@ -150,27 +173,38 @@ button[type="submit"]:hover {
 
 table {
     width: 100%;
+    min-width: 600px; /* Ensures the table is wide enough to trigger scrolling on mobile */
     border-collapse: collapse;
     margin-top: 16px;
 }
 
 th, td {
-    padding: 12px;
+    padding: 14px 12px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
 
 th {
-    background-color: var(--bg-color);
-    font-weight: 600;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+}
+
+tr:last-child td {
+    border-bottom: none;
 }
 
 /* Calculator Styles */
 .calculator {
-    background: #e9e9e9;
+    background: var(--bg-color);
     padding: 1rem;
     border-radius: 8px;
     box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
 #calc-display {
@@ -179,7 +213,9 @@ th {
     margin-bottom: 1rem;
     text-align: right;
     font-size: 1.8rem;
-    background: #fff;
+    background: var(--main-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
 }
 
 .calc-buttons {
@@ -195,6 +231,8 @@ th {
     border: none;
     border-radius: 5px;
     transition: background-color 0.2s;
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
 }
 
 .calc-buttons button:hover {
@@ -202,7 +240,7 @@ th {
 }
 
 .calc-buttons .operator {
-    background-color: #ff9f43;
+    background-color: var(--primary-color);
     color: white;
 }
 
@@ -279,7 +317,7 @@ a:hover {
 }
 
 /* Dark Mode Specific Adjustments for Notes */
-body.dark-mode #notes-textarea {
+.dark-mode #notes-textarea {
     background-color: #2c2c2e;
     border-color: #48484a;
     color: #e5e5e7;
@@ -316,6 +354,133 @@ body.dark-mode #notes-textarea {
     grid-column: span 2;
     padding: 12px;
     font-weight: bold;
+}
+
+.delete-btn {
+    background-color: var(--red-color);
+    color: white;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* Settings Page Specifics */
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.setting-group {
+    background: var(--main-bg-color);
+    border-radius: var(--corner-radius);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+}
+
+.setting-group-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--text-color);
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
+}
+
+.setting-item:not(:last-child) {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-item label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.setting-item select,
+.setting-item input[type="text"] {
+    margin-top: 4px;
+}
+
+.setting-item .button-group {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.setting-item .input-with-button {
+    display: flex;
+    gap: 8px;
+}
+
+.setting-item .input-with-button input {
+    flex: 1;
+}
+
+.setting-item .input-with-button button {
+    padding: 0 20px;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.checkbox-item {
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkbox-item label {
+    margin-bottom: 0;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: transparent;
+    color: var(--red-color);
+    border: 1px solid var(--red-color);
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-danger:hover {
+    background-color: var(--red-color);
+    color: white;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.about {
+    text-align: center;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+    font-size: 0.85rem;
+    opacity: 0.6;
 }
 
 /* --- Tambahan untuk Responsive Design --- */
@@ -358,8 +523,10 @@ body.dark-mode #notes-textarea {
     }
 
     /* Biar tabelnya bisa di-scroll ke samping kalo datanya panjang */
-    .history-section {
+    .table-container {
         overflow-x: auto; /* Ini penting banget buat tabel! */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        margin-top: 1rem;
     }
 }
 
@@ -367,7 +534,7 @@ body.dark-mode #notes-textarea {
 
 .language-buttons button {
     flex: 1;
-    background-color: #eee;
+    background-color: var(--bg-color);
     border: 1px solid var(--border-color);
     color: var(--text-color);
     cursor: pointer;
@@ -381,11 +548,11 @@ body.dark-mode #notes-textarea {
     border-color: var(--primary-color);
 }
 
-body.dark-mode .language-buttons button {
+.dark-mode .language-buttons button {
     background-color: #3a3f44;
 }
 
-body.dark-mode .language-buttons button.active-lang {
+.dark-mode .language-buttons button.active-lang {
     background-color: var(--primary-color);
     color: white;
 }
@@ -397,12 +564,11 @@ body.dark-mode .language-buttons button.active-lang {
     left: 0;
     width: 100%;
     display: flex;
-    gap: 4px;
     justify-content: space-around;
     background-color: var(--main-bg-color);
     border-top: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    padding: 8px 0;
+    padding: 10px 0 calc(10px + env(safe-area-inset-bottom));
+    z-index: 1000;
 }
 
 .bottom-nav button {
@@ -410,18 +576,24 @@ body.dark-mode .language-buttons button.active-lang {
     border: none;
     background: none;
     padding: 12px 0;
-    margin-left: 12px;
-    margin-right: 12px;
-    font-size: 16px;
+    margin: 0 10px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-color);
     cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    opacity: 0.6;
 }
 
 .bottom-nav button.active {
-    background-color: var(--primary-color);
-    color: white;
+    opacity: 1;
+    color: var(--primary-color);
+    background-color: rgba(0, 122, 255, 0.08);
+}
+
+body.dark-mode .bottom-nav button.active {
+    background-color: rgba(55, 148, 255, 0.15);
 }
 
 /* Section Visibility */

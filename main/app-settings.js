@@ -31,15 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Apply theme
     if (settings.theme === 'dark') {
-        body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
     } else {
-        body.classList.remove('dark-mode');
+        document.documentElement.classList.remove('dark-mode');
     }
 
     // 3. Show/hide calculator based on settings
-    const quickCalculator = document.getElementById('quick-calculator');
+    const quickCalculator = document.getElementById('quick-calculator-section');
     if (quickCalculator) {
-        // Default to 'block' if the setting doesn't exist yet
-        quickCalculator.style.display = (settings.showCalculator === false) ? 'none' : 'block';
+        // Default to 'flex' or 'block' if the setting doesn't exist yet
+        quickCalculator.style.display = (settings.showCalculator === false) ? 'none' : '';
     }
 });

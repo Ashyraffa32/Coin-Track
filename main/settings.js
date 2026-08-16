@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const applySettings = () => {
         // Apply theme
         if (settings.theme === 'dark') {
-            body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark-mode');
             themeSelector.value = 'dark';
         } else {
-            body.classList.remove('dark-mode');
+            document.documentElement.classList.remove('dark-mode');
             themeSelector.value = 'light';
         }
         

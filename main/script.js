@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const formTransaksi = document.getElementById('form-transaksi');
     const deskripsiInput = document.getElementById('deskripsi');
     const kategoriInput = document.getElementById('kategori');
-    const tagsInput = document.getElementById('tags');
     const jumlahInput = document.getElementById('jumlah');
     const kuantitasInput = document.getElementById('kuantitas');
     const tipeInput = document.getElementById('tipe');
@@ -31,8 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const calcDisplay = document.getElementById('calc-display');
     const notesTextarea = document.getElementById('notes-textarea');
     const saveLocalBtn = document.getElementById('save-local-btn');
-    const dlTxtBtn = document.getElementById('dl-txt-btn');
-    const dlMdBtn = document.getElementById('dl-md-btn');
 
     // Load saved notes
     const savedNotes = localStorage.getItem('userNotes');
@@ -65,19 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 0);
     };
 
-    // Event Listeners to save Files
-    dlTxtBtn.addEventListener('click', () => {
-        const content = notesTextarea.value;
-        const date = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
-        downloadFile(content, `cointrack-notes-${date}.txt`, 'text/plain');
-    });
-
-    dlMdBtn.addEventListener('click', () => {
-        const content = notesTextarea.value;
-        const date = new Date().toISOString().split('T')[0];
-        downloadFile(content, `cointrack-notes-${date}.md`, 'text/markdown');
-    });    
-
 
     // --- APP STATE ---
     let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
@@ -99,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxAmount = parseInt(amountFilterInput?.value || '', 10);
 
         return transactions.filter((trx) => {
-            const searchableText = [trx.deskripsi, trx.kategori, ...(trx.tags || [])].join(' ').toLowerCase();
+            const searchableText = [trx.deskripsi, trx.kategori].join(' ').toLowerCase();
             const matchesSearch = !searchTerm || searchableText.includes(searchTerm);
             const matchesCategory = !categoryTerm || (trx.kategori || '').toLowerCase().includes(categoryTerm);
             const matchesAmount = Number.isNaN(maxAmount) || trx.jumlah <= maxAmount;
@@ -122,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         visibleTransactions.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
 
         if (visibleTransactions.length === 0) {
-            tabelTransaksiBody.innerHTML = `<tr><td colspan="8" style="text-align:center;">${translation.noMatchingTransactions || translation.noTransactions}</td></tr>`;
+            tabelTransaksiBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">${translation.noMatchingTransactions || translation.noTransactions}</td></tr>`;
             return;
         }
 
@@ -135,7 +119,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (categoryOptions) {
             categoryOptions.innerHTML = '';
-            ['Food', 'Bills', 'Transport', 'Savings', 'Other', ...Array.from(existingCategories)]
+            const defaultCats = [
+                translation.categoryFood || 'Food',
+                translation.categoryBills || 'Bills',
+                translation.categoryTransport || 'Transport',
+                translation.categorySavings || 'Savings',
+                translation.categoryOther || 'Other'
+            ];
+
+            [...defaultCats, ...Array.from(existingCategories)]
                 .filter(Boolean)
                 .forEach((value) => {
                     const option = document.createElement('option');
@@ -144,21 +136,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         }
 
+        const formKategoriList = document.getElementById('kategori-list');
+        if (formKategoriList) {
+            formKategoriList.innerHTML = '';
+            [
+                translation.categoryFood || 'Food',
+                translation.categoryBills || 'Bills',
+                translation.categoryTransport || 'Transport',
+                translation.categorySavings || 'Savings',
+                translation.categoryOther || 'Other'
+            ].forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                formKategoriList.appendChild(option);
+            });
+        }
+
         visibleTransactions.forEach((trx) => {
             const row = document.createElement('tr');
             const displayTotal = formatCurrency(trx.jumlah);
             const displayCategory = categoryNames[trx.kategori?.toLowerCase()] || trx.kategori || '-';
-            const displayTags = trx.tags && trx.tags.length ? trx.tags.join(', ') : '-';
             
             row.innerHTML = `
                 <td>${trx.tanggal}</td>
                 <td>${trx.deskripsi}</td>
                 <td>${displayCategory}</td>
-                <td>${displayTags}</td>
                 <td>${displayTotal}</td>
                 <td>${trx.kuantitas || 1}</td>
                 <td>${trx.tipe === 'pemasukan' ? translation.incomeOption : translation.expenseOption}</td>
-                <td><button class="delete-btn" data-id="${trx.id}">Hapus</button></td>
+                <td><button class="delete-btn" data-id="${trx.id}">${translation.deleteButton}</button></td>
             `;
             tabelTransaksiBody.appendChild(row);
         });
@@ -215,7 +221,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const deskripsi = deskripsiInput.value.trim();
         const kategori = kategoriInput.value;
-        const tags = tagsInput.value.trim();
         const hargaSatuan = parseInt(jumlahInput.value, 10) || 0;
         const kuantitas = parseInt(kuantitasInput.value, 10) || 1;
         const tipe = tipeInput.value;
@@ -232,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
             id: Date.now(),
             deskripsi,
             kategori,
-            tags: tags ? tags.split(',').map(tag => tag.trim()).filter(Boolean) : [],
             jumlah: totalHarga,
             kuantitas,
             tipe,

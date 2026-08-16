@@ -18,7 +18,7 @@ const translations = {
         expenseOption: "Expense",
         addButton: "Add",
         selectCategoryOption: "Select category",
-        searchTransactionsPlaceholder: "Search description, category or tags",
+        searchTransactionsPlaceholder: "Search description or category",
         filterCategoryPlaceholder: "Filter by category",
         filterAmountPlaceholder: "Max amount",
         clearFiltersButton: "Clear",
@@ -37,6 +37,7 @@ const translations = {
         quantityHeader: "Quantity",
         typeHeader: "Type",
         actionHeader: "Action",
+        deleteButton: "Delete",
         noTransactions: "No transactions yet",
         saveLocalBtn: "Save to App",
         downloadTxtBtn: "Save as .txt",
@@ -69,6 +70,8 @@ const translations = {
         transactionsTitle: "Transactions",
         quickCalculatorNav: "Quick Calculator",
         transactionsNav: "Transactions",
+        notesNav: "Notes",
+        footerAbout: "CoinTrack v1.3.5, made by Ashyraffa",
     },
     // Indonesian Translations
     id: {
@@ -89,7 +92,7 @@ const translations = {
         expenseOption: "Pengeluaran",
         addButton: "Tambah",
         selectCategoryOption: "Pilih kategori",
-        searchTransactionsPlaceholder: "Cari deskripsi, kategori, atau tag",
+        searchTransactionsPlaceholder: "Cari deskripsi atau kategori",
         filterCategoryPlaceholder: "Saring berdasarkan kategori",
         filterAmountPlaceholder: "Jumlah maksimal",
         clearFiltersButton: "Bersihkan",
@@ -108,6 +111,7 @@ const translations = {
         quantityHeader: "Jumlah Barang",
         typeHeader: "Tipe",
         actionHeader: "Aksi",
+        deleteButton: "Hapus",
         noTransactions: "Belum ada transaksi",
         saveLocalBtn: "Simpan di Aplikasi",
         downloadTxtBtn: "Simpan sebagai .txt",
@@ -140,5 +144,7 @@ const translations = {
         transactionsTitle: "Transaksi",
         quickCalculatorNav: "Kalkulator Cepat",
         transactionsNav: "Transaksi",
+        notesNav: "Catatan",
+        footerAbout: "CoinTrack v1.3.5, dibuat oleh Ashyraffa",
     }
 };

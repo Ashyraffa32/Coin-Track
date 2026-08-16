@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
     <title>Coin Track</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Apply theme immediately to prevent flashing
+        (function() {
+            const settings = JSON.parse(localStorage.getItem('settings')) || {};
+            if (settings.theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+            }
+        })();
+    </script>
 </head>
 <body>
     <div class="container">
@@ -44,15 +56,15 @@
             <h1 data-i18n="transactionsTitle">Transactions</h1>
             <div class="summary-container">
                 <div class="summary-box pemasukan">
-                    <h2 data-i18n="totalIncomeLabel" style="color: #000000;">Income</h2>
+                    <h2 data-i18n="totalIncomeLabel">Income</h2>
                     <p id="total-pemasukan">$0</p>
                 </div>
                 <div class="summary-box pengeluaran">
-                    <h2 data-i18n="totalExpenseLabel" style="color: #000000;">Expense</h2>
+                    <h2 data-i18n="totalExpenseLabel">Expense</h2>
                     <p id="total-pengeluaran">$0</p>
                 </div>
                 <div class="summary-box saldo">
-                    <h2 data-i18n="balanceLabel" style="color: #000000;">Balance</h2>
+                    <h2 data-i18n="balanceLabel">Balance</h2>
                     <p id="saldo-akhir">$0</p>
                 </div>
             </div>
@@ -61,59 +73,51 @@
                 <div class="form-section">
                     <h2 data-i18n="addTransactionLabel">Add Transaction</h2>
                     <form id="form-transaksi">
-                        <input type="text" id="deskripsi" placeholder="Description" required>
+                        <input type="text" id="deskripsi" data-i18n-placeholder="descriptionPlaceholder" placeholder="Description" required>
                         <input list="kategori-list" id="kategori" data-i18n-placeholder="categoryPlaceholder" placeholder="Category" required>
                         <datalist id="kategori-list">
-                            <option value="Food"></option>
-                            <option value="Bills"></option>
-                            <option value="Transport"></option>
-                            <option value="Savings"></option>
-                            <option value="Other"></option>
+                            <option value="Add Your Own"></option>
                         </datalist>
-                        <input type="text" id="tags" placeholder="Tags (comma separated)">
-                        <input type="number" id="kuantitas" placeholder="Quantity" min="1" value="1" required>
-                        <input type="number" id="jumlah" placeholder="Price" required>
+                        <input type="number" id="kuantitas" data-i18n-placeholder="quantityPlaceholder" placeholder="Quantity" min="1" value="1" required>
+                        <input type="number" id="jumlah" data-i18n-placeholder="pricePlaceholder" placeholder="Price" required>
                         <select id="tipe" required>
-                            <option value="pemasukan">Income</option>
-                            <option value="pengeluaran">Expense</option>
+                            <option value="pemasukan" data-i18n="incomeOption">Income</option>
+                            <option value="pengeluaran" data-i18n="expenseOption">Expense</option>
                         </select>
                         <input type="date" id="tanggal" required>
-                        <button type="submit">Add</button>
+                        <button type="submit" data-i18n="addButton">Add</button>
                     </form>
                 </div>
 
                 <div class="history-section">
                     <h2 data-i18n="historyLabel">Transaction History</h2>
                     <div class="history-filters">
-                        <input type="text" id="search-transactions" data-i18n-placeholder="searchTransactionsPlaceholder" placeholder="Search description, category or tags">
+                        <input type="text" id="search-transactions" data-i18n-placeholder="searchTransactionsPlaceholder" placeholder="Search description or category">
                         <input list="category-options" id="filter-category" data-i18n-placeholder="filterCategoryPlaceholder" placeholder="Filter by category">
                         <datalist id="category-options">
-                            <option value="Food"></option>
-                            <option value="Bills"></option>
-                            <option value="Transport"></option>
-                            <option value="Savings"></option>
-                            <option value="Other"></option>
+                            <option value="Add Your Own"></option>
                         </datalist>
                         <input type="number" id="filter-amount" data-i18n-placeholder="filterAmountPlaceholder" placeholder="Max amount" min="0">
                         <button type="button" id="clear-filters-btn" data-i18n="clearFiltersButton">Clear</button>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th>Tags</th>
-                                <th>Amount</th>
-                                <th>Quantity</th>
-                                <th>Type</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabel-transaksi">
-                            <!-- Transactions will be dynamically added here -->
-                        </tbody>
-                    </table>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th data-i18n="dateHeader">Date</th>
+                                    <th data-i18n="descriptionHeader">Description</th>
+                                    <th data-i18n="categoryHeader">Category</th>
+                                    <th data-i18n="amountHeader">Amount</th>
+                                    <th data-i18n="quantityHeader">Quantity</th>
+                                    <th data-i18n="typeHeader">Type</th>
+                                    <th data-i18n="actionHeader">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabel-transaksi">
+                                <!-- Transactions will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
                     <br>
                     <br>
                     <br>
@@ -134,12 +138,6 @@
                 Save to App
             </button>
             <div class="download-group">
-                <button id="dl-txt-btn" class="btn-secondary" data-i18n="downloadTxtBtn">
-                    Save as .txt
-                </button>
-                <button id="dl-md-btn" class="btn-secondary" data-i18n="downloadMdBtn">
-                    Save as .md
-                </button>
             </div>
         </div>
     </div>
