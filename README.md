@@ -18,7 +18,7 @@ Since CoinTrack is built using pure web technologies (Vanilla HTML/CSS/JS) and w
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com
+   git clone https://github.com/Ashyraffa32/Coin-Track
    cd Coin-Track
    ```
 
