@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const getFilteredTransactions = () => {
         const searchTerm = (searchInput?.value || '').trim().toLowerCase();
         const categoryTerm = (categoryFilterInput?.value || '').trim().toLowerCase();
-        const maxAmount = parseInt(amountFilterInput?.value || '', 10);
+        const maxAmount = parseFloat(amountFilterInput?.value || '');
 
         return transactions.filter((trx) => {
             const searchableText = [trx.deskripsi, trx.kategori].join(' ').toLowerCase();
@@ -119,15 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (categoryOptions) {
             categoryOptions.innerHTML = '';
-            const defaultCats = [
-                translation.categoryFood || 'Food',
-                translation.categoryBills || 'Bills',
-                translation.categoryTransport || 'Transport',
-                translation.categorySavings || 'Savings',
-                translation.categoryOther || 'Other'
-            ];
-
-            [...defaultCats, ...Array.from(existingCategories)]
+            Array.from(existingCategories)
                 .filter(Boolean)
                 .forEach((value) => {
                     const option = document.createElement('option');
@@ -139,17 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const formKategoriList = document.getElementById('kategori-list');
         if (formKategoriList) {
             formKategoriList.innerHTML = '';
-            [
-                translation.categoryFood || 'Food',
-                translation.categoryBills || 'Bills',
-                translation.categoryTransport || 'Transport',
-                translation.categorySavings || 'Savings',
-                translation.categoryOther || 'Other'
-            ].forEach(cat => {
-                const option = document.createElement('option');
-                option.value = cat;
-                formKategoriList.appendChild(option);
-            });
+            Array.from(existingCategories)
+                .filter(Boolean)
+                .forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    formKategoriList.appendChild(option);
+                });
         }
 
         visibleTransactions.forEach((trx) => {
@@ -221,12 +209,12 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const deskripsi = deskripsiInput.value.trim();
         const kategori = kategoriInput.value;
-        const hargaSatuan = parseInt(jumlahInput.value, 10) || 0;
+        const hargaSatuan = parseFloat(jumlahInput.value) || 0;
         const kuantitas = parseInt(kuantitasInput.value, 10) || 1;
         const tipe = tipeInput.value;
         const tanggal = tanggalInput.value;
 
-        if (!deskripsi || !kategori || !hargaSatuan || !tanggal || !tipe) {
+        if (!deskripsi || !kategori || !tanggal || !tipe || jumlahInput.value === '') {
             alert(translation.validationAlert);
             return;
         }
