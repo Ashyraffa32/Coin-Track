@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveCurrencyBtn = document.getElementById('save-currency-btn');
     const resetBtn = document.getElementById('reset-btn');
     const showCalculatorCheckbox = document.getElementById('show-calculator-checkbox');
-    const body = document.body;
-    // New selectors for language buttons
     const langIdBtn = document.getElementById('lang-id-btn');
     const langEnBtn = document.getElementById('lang-en-btn');
 
@@ -14,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- STATE & LOCAL STORAGE ---
     let settings = JSON.parse(localStorage.getItem('settings')) || {};
     const currentLang = settings.language || 'id'; // Get current lang for alerts
-    const translation = translations[currentLang];
+    const translation = translations[currentLang] || translations.id;
     let currencySymbols;
     let currencyCodes;
 

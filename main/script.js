@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- GLOBAL SETTINGS & LANGUAGE ---
     const settings = JSON.parse(localStorage.getItem('settings')) || {};
     const currentLang = settings.language || 'id';
-    const translation = translations[currentLang];
+    const translation = translations[currentLang] || translations.id;
 
     // --- ELEMENT SELECTION ---
     const formTransaksi = document.getElementById('form-transaksi');
@@ -43,25 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('userNotes', content);
         alert(translation.notesSavedAlert || "Notes Saved!");
     });
-
-    // Helper Functions
-    const downloadFile = (content, filename, contentType) => {
-        const a = document.createElement('a');
-        const file = new Blob([content], { type: contentType });
-        
-        a.href = URL.createObjectURL(file);
-        a.download = filename;
-        a.style.display = 'none';
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        setTimeout(() => {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(a.href);
-        }, 0);
-    };
-
 
     // --- APP STATE ---
     let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
@@ -105,11 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const visibleTransactions = getFilteredTransactions();
         visibleTransactions.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
 
-        if (visibleTransactions.length === 0) {
-            tabelTransaksiBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">${translation.noMatchingTransactions || translation.noTransactions}</td></tr>`;
-            return;
-        }
-
         const existingCategories = new Set();
         transactions.forEach((trx) => {
             if (trx.kategori) {
@@ -140,20 +116,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         }
 
+        if (visibleTransactions.length === 0) {
+            const row = document.createElement('tr');
+            const cell = document.createElement('td');
+            cell.colSpan = 7;
+            cell.textContent = translation.noMatchingTransactions || translation.noTransactions;
+            cell.style.textAlign = 'center';
+            row.appendChild(cell);
+            tabelTransaksiBody.appendChild(row);
+            return;
+        }
+
         visibleTransactions.forEach((trx) => {
             const row = document.createElement('tr');
             const displayTotal = formatCurrency(trx.jumlah);
             const displayCategory = categoryNames[trx.kategori?.toLowerCase()] || trx.kategori || '-';
-            
-            row.innerHTML = `
-                <td>${trx.tanggal}</td>
-                <td>${trx.deskripsi}</td>
-                <td>${displayCategory}</td>
-                <td>${displayTotal}</td>
-                <td>${trx.kuantitas || 1}</td>
-                <td>${trx.tipe === 'pemasukan' ? translation.incomeOption : translation.expenseOption}</td>
-                <td><button class="delete-btn" data-id="${trx.id}">${translation.deleteButton}</button></td>
-            `;
+
+            [
+                trx.tanggal,
+                trx.deskripsi,
+                displayCategory,
+                displayTotal,
+                trx.kuantitas || 1,
+                trx.tipe === 'pemasukan' ? translation.incomeOption : translation.expenseOption,
+            ].forEach((value) => {
+                const cell = document.createElement('td');
+                cell.textContent = value;
+                row.appendChild(cell);
+            });
+
+            const actionCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-btn';
+            deleteButton.dataset.id = trx.id;
+            deleteButton.textContent = translation.deleteButton;
+            actionCell.appendChild(deleteButton);
+            row.appendChild(actionCell);
             tabelTransaksiBody.appendChild(row);
         });
     };
@@ -240,40 +238,44 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const calcButtonsContainer = document.querySelector('.calc-buttons');
 
-const appendToDisplay = (value) => {
-    calcDisplay.value += value;
-};
+    const appendToDisplay = (value) => {
+        calcDisplay.value += value;
+    };
 
-const clearDisplay = () => {
-    calcDisplay.value = '';
-};
+    const clearDisplay = () => {
+        calcDisplay.value = '';
+    };
 
-const calculateResult = () => {
-    try {
-        // eval() is a simple way to compute the math string.
-        // It's fine for a simple project like this!
-        const result = eval(calcDisplay.value);
-        calcDisplay.value = result;
-    } catch (error) {
-        calcDisplay.value = 'Error';
-    }
-};
+    const calculateResult = () => {
+        const expression = calcDisplay.value;
+        if (!/^[0-9+*/.()\s-]+$/.test(expression)) {
+            calcDisplay.value = 'Error';
+            return;
+        }
 
-calcButtonsContainer.addEventListener('click', (e) => {
-    if (e.target.tagName !== 'BUTTON') {
-        return; // Didn't click a button
-    }
+        try {
+            const result = Function(`"use strict"; return (${expression})`)();
+            calcDisplay.value = Number.isFinite(result) ? result : 'Error';
+        } catch (error) {
+            calcDisplay.value = 'Error';
+        }
+    };
 
-    const buttonValue = e.target.textContent;
+    calcButtonsContainer.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'BUTTON') {
+            return;
+        }
 
-    if (buttonValue === '=') {
-        calculateResult();
-    } else if (buttonValue === 'C') {
-        clearDisplay();
-    } else {
-        appendToDisplay(buttonValue);
-    }
-});
+        const buttonValue = e.target.textContent;
+
+        if (buttonValue === '=') {
+            calculateResult();
+        } else if (buttonValue === 'C') {
+            clearDisplay();
+        } else {
+            appendToDisplay(buttonValue);
+        }
+    });
 
     // Function to switch sections
 

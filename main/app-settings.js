@@ -22,7 +22,6 @@ const setLanguage = (lang) => {
 
 // This single listener will run on every page to apply all global settings
 document.addEventListener('DOMContentLoaded', () => {
-    const body = document.body;
     let settings = JSON.parse(localStorage.getItem('settings')) || {};
 
     // 1. Apply Language

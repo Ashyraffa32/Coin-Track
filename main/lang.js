@@ -72,7 +72,7 @@ const translations = {
         quickCalculatorNav: "Quick Calculator",
         transactionsNav: "Transactions",
         notesNav: "Notes",
-        footerAbout: "CoinTrack v1.3.5, made by Ashyraffa",
+        footerAbout: "CoinTrack v1.3.6, made by Ashyraffa",
     },
     // Indonesian Translations
     id: {
@@ -147,6 +147,6 @@ const translations = {
         quickCalculatorNav: "Kalkulator Cepat",
         transactionsNav: "Transaksi",
         notesNav: "Catatan",
-        footerAbout: "CoinTrack v1.3.5, dibuat oleh Ashyraffa",
+        footerAbout: "CoinTrack v1.3.6, dibuat oleh Ashyraffa",
     }
 };
