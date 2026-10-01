@@ -5,6 +5,8 @@ Because of that, you cannot sideload this app easily due to Android's new restri
 
 To install, you have to enable Advanced Flow, before enabling it, you have to wait **24 hours.**
 
+You can learn more at [Keep Android Open.](https://keepandroidopen.org/)
+
 ## CoinTrack
 
 > A mobile financial tracker, for treasures. CoinTrack is open-source.
