@@ -1,5 +1,5 @@
 # PLEASE READ!!
-**I, Ahab,** as a developer of CoinTrack, did not agree with Google's new policy about Android sideloading since 30th September, 2026.
+**I, Ahab,** as a developer of CoinTrack, did not agree with Google's new policy about Android sideloading since 30th September 2026.
 
 Because of that, you cannot sideload this app easily due to Android's new restriction rule.
 
