@@ -7,6 +7,7 @@
     --main-bg-color: #ffffff;
     --text-color: #212529;
     --primary-color: #007aff;
+    --red-color: #dc3545;
     --border-color: #e9ecef;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     --corner-radius: 16px;
@@ -50,7 +51,7 @@ input, select, textarea, [contenteditable="true"] {
 
 
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: auto;
     background: var(--main-bg-color);
     padding: 16px;
@@ -101,12 +102,14 @@ h1, h2 {
 .saldo p { color: var(--primary-color); }
 
 .main-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 2fr);
     gap: 2rem;
+    align-items: start;
 }
 
 .form-section, .history-section {
-    flex: 1;
+    min-width: 0;
 }
 
 form {
@@ -359,12 +362,18 @@ a:hover {
 .delete-btn {
     background-color: var(--red-color);
     color: white;
-    padding: 6px 12px;
+    min-height: 44px;
+    padding: 10px 12px;
     font-size: 14px;
 }
 
 .delete-btn:hover {
     background-color: #d32f2f;
+}
+
+.delete-btn:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
 /* Settings Page Specifics */
@@ -484,6 +493,17 @@ a:hover {
 }
 
 /* --- Tambahan untuk Responsive Design --- */
+
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+
+    .history-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
 
 /* Ini berlaku untuk layar dengan lebar maksimal 768px (ukuran tablet & HP) */
 @media (max-width: 768px) {

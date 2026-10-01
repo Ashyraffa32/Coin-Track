@@ -53,7 +53,7 @@ const translations = {
         lightModeOption: "Light Mode",
         darkModeOption: "Dark Mode",
         currencyLabel: "Currency Symbol",
-        currencyPlaceholder: "Example: $",
+        currencyPlaceholder: "Example: $, Rp, or RM",
         saveButton: "Save",
         dataMgmtLabel: "Data Management",
         resetButton: "Delete All Data",
@@ -62,6 +62,7 @@ const translations = {
         // settings.js alerts
         currencySavedAlert: "Currency symbol saved successfully!",
         currencyEmptyAlert: "Symbol cannot be empty!",
+        currencyInvalidAlert: "Enter a recognized currency symbol.",
         resetConfirm1: "Are you sure you want to delete all data? This is a permanent action!",
         resetConfirm2: "Really sure? This action cannot be undone.",
         resetSuccessAlert: "All transaction data has been successfully deleted.",
@@ -71,7 +72,7 @@ const translations = {
         quickCalculatorNav: "Quick Calculator",
         transactionsNav: "Transactions",
         notesNav: "Notes",
-        footerAbout: "CoinTrack v1.3.5, made by Ashyraffa",
+        footerAbout: "CoinTrack v1.3.6, made by Ashyraffa",
     },
     // Indonesian Translations
     id: {
@@ -127,7 +128,7 @@ const translations = {
         lightModeOption: "Light Mode",
         darkModeOption: "Dark Mode",
         currencyLabel: "Simbol Mata Uang",
-        currencyPlaceholder: "Contoh: Rp",
+        currencyPlaceholder: "Contoh: $, Rp, atau RM",
         saveButton: "Simpan",
         dataMgmtLabel: "Manajemen Data",
         resetButton: "Hapus Semua Data",
@@ -136,6 +137,7 @@ const translations = {
         // settings.js alerts
         currencySavedAlert: "Simbol mata uang berhasil disimpan!",
         currencyEmptyAlert: "Simbol tidak boleh kosong!",
+        currencyInvalidAlert: "Masukkan simbol mata uang yang valid.",
         resetConfirm1: "Apakah anda yakin ingin menghapus data? Ini tindakan permanen!",
         resetConfirm2: "Yakin? Tindakan ini tidak bisa dibatalkan.",
         resetSuccessAlert: "Semua data transaksi berhasil dihapus.",
@@ -145,6 +147,6 @@ const translations = {
         quickCalculatorNav: "Kalkulator Cepat",
         transactionsNav: "Transaksi",
         notesNav: "Catatan",
-        footerAbout: "CoinTrack v1.3.5, dibuat oleh Ashyraffa",
+        footerAbout: "CoinTrack v1.3.6, dibuat oleh Ashyraffa",
     }
 };
