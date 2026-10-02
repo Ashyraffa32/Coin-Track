@@ -62,6 +62,6 @@ If you share or modify, please give proper credits 🙏.
 ## 📢 Credits
 This project was started by two middle‑school friends :D
 
-> Built with ❤️ by raffa3527
+> Built with ❤️ by raffa3527 (known as Ahab)
 
 ---
