@@ -1,9 +1,14 @@
 # PLEASE READ!!
-**I, Ahab,** as a developer of CoinTrack, did not agree with Google's new policy about Android sideloading since 30th September 2026.
+**I, Ahab,** as a developer of this software, did not agree with Google's new rule about **sideloading** and **developer verification.**
 
-Because of that, you cannot sideload this app easily due to Android's new restriction rule.
+Since **30 September 2026**, Google's new restriction is rolling out to all Android devices running **Android 8.0 Oreo or later.**
 
-To install, you have to enable Advanced Flow, before enabling it, you have to wait **24 hours.**
+To install this software, you need to turn on **Advanced Flow.**, Don't worry, my software is safe. If you dont believe, i'm opening the code.
+
+See all of codes right here at the repo.
+
+Do not worry, you can turn it back off after installing my software.
+
 
 You can learn more at [Keep Android Open.](https://keepandroidopen.org/)
 
